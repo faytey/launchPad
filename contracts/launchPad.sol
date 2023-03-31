@@ -56,7 +56,7 @@ contract LaunchPad {
         pad.tokenANeeded = _tokenAAmountNeeded;
         pad.tokenABalance = 0;
         pad.exists = true;
-        CreatorDetail memory info = creator[id];
+        CreatorDetail storage info = creator[id];
         info.creator = msg.sender;
         info.nameOfPad = pad.name;
         _id= id;
