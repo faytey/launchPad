@@ -43,26 +43,22 @@ async function main() {
 
   const amount = ethers.utils.parseEther("0.01");
 
-  const approval = await tokenB
-    .connect(profile1)
-    .approve(launchpad.address, 2000);
+  const approval = await tokenB.approve(launchpad.address, 2000);
   console.log(
     "launchpad allowance of token b is",
     await tokenB.allowance(profile1.address, launchpad.address)
   );
 
-  const createPad = await launchpad
-    .connect(profile1)
-    .createLaunchPad(
-      "Faith's Funds",
-      tokenA.address,
-      tokenB.address,
-      60,
-      300,
-      100,
-      100,
-      { value: amount }
-    );
+  const createPad = await launchpad.createLaunchPad(
+    "Faith's Funds",
+    tokenA.address,
+    tokenB.address,
+    60,
+    300,
+    100,
+    100,
+    { value: amount }
+  );
   console.log("success");
   console.log(
     "tokenB balance of launchpad is ",

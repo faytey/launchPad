@@ -29,9 +29,9 @@ contract LaunchPad {
         string nameOfPad;
     }
 
-    mapping(uint256 => PadDetails) padId;
-    mapping(uint256 => CreatorDetail) creator;
-    mapping(address => bool) subscriberIndex;
+    mapping(uint256 => PadDetails) public padId;
+    mapping(uint256 => CreatorDetail) public creator;
+    mapping(address => bool) public subscriberIndex;
 
     constructor(address _owner){
         owner = _owner;

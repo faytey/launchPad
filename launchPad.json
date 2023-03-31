@@ -1,5 +1,5 @@
 {
-  "TokenAContractAddress": "0xcD1b0CD509Fc67BCF94b092f2614466bC57c9cd8",
-  "TokenBContractAddress": "0x1938EFde4C2bA42505f34f3A9688D4F101195D6c",
-  "LaunchPadContractAddress": "0xF352444a76C065092cecea3Bd41F5B7ED01673c8"
+  "TokenAContractAddress": "0x317B9dadF8Cc8df91801E31851EE6bEad8Df7d72",
+  "TokenBContractAddress": "0xAE4C1396E614f0aA27beD87Edb40332C8caF6DD1",
+  "LaunchPadContractAddress": "0xf00b1e3834D92D3edCB5992D00b23284C6D26585"
 }
