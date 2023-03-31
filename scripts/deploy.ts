@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { writeFileSync } from "fs";
 
 async function main() {
   const [owner, profile1, profile3] = await ethers.getSigners();
@@ -26,6 +27,19 @@ async function main() {
   const launchpad = await LaunchPad.deploy(owner.address);
   await launchpad.deployed();
   console.log(`Launch Pad contract deployed to ${launchpad.address}`);
+
+  writeFileSync(
+    "launchPad.json",
+    JSON.stringify(
+      {
+        TokenAContractAddress: tokenA.address,
+        TokenBContractAddress: tokenB.address,
+        LaunchPadContractAddress: launchpad.address,
+      },
+      null,
+      2
+    )
+  );
 
   const amount = ethers.utils.parseEther("0.01");
 
