@@ -29,14 +29,12 @@ async function main() {
 
   const amount = ethers.utils.parseEther("0.01");
 
-  const approval = tokenB
-    .connect(profile1.address)
+  const approval = await tokenB
+    .connect(profile1)
     .approve(launchpad.address, 2000);
   console.log(
     "launchpad allowance of token b is",
-    await tokenB
-      .connect(profile1.address)
-      .allowance(profile1.address, launchpad.address)
+    await tokenB.allowance(profile1.address, launchpad.address)
   );
 
   const createPad = await launchpad
@@ -51,6 +49,38 @@ async function main() {
       100,
       { value: amount }
     );
+  console.log("success");
+  console.log(
+    "tokenB balance of launchpad is ",
+    await tokenB.balanceOf(launchpad.address)
+  );
+
+  const warpTime = await ethers.provider.send("evm_mine", [1680262530]);
+  await tokenA.approve(launchpad.address, 100);
+
+  const deposit = await launchpad.deposit(1, 100);
+  console.log("deposited successfully");
+  console.log(
+    "tokenA balance of launchpad is ",
+    await tokenB.balanceOf(launchpad.address)
+  );
+
+  //CHECKING OUT DEPOSIT AFTER MAXIMUM AMOUNT REACHED
+  // const deposit1 = await launchpad.connect(profile3).deposit(1, 100);
+  // console.log("deposited successfully");
+  // console.log(
+  //   "tokenA balance of launchpad is ",
+  //   await tokenB.balanceOf(launchpad.address)
+  // );
+  await ethers.provider.send("evm_mine", [1680270400]);
+
+  // const transferTokenA = await launchpad
+  //   .connect(profile1)
+  //   .transferTokenA(1, 100);
+  console.log(await owner.getBalance());
+  const withdraw = await launchpad.withdrawEth();
+  console.log("successfully withdrawn");
+  console.log(await owner.getBalance());
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract LaunchPad {
-    address owner;
+    address public owner;
     uint256 id;
     uint256 index;
 
@@ -85,8 +85,8 @@ contract LaunchPad {
         require(padId[_id].exists == true, "Token does not exist");
         require(padId[_id].endTime < block.timestamp, "campaign not yet ended");
         require(_amount <= padId[_id].tokenABalance, "Not enough tokens");
-        address payee = creator[_id].creator;
-        padId[_id].TokenA.transferFrom(address(this), payee, _amount);
+        require(msg.sender == creator[_id].creator, "You are not the admin");
+        padId[_id].TokenA.transfer(msg.sender, _amount);
         success = true;
     }
     function transferTokenB(uint256 _id, uint256 _amount) public returns(bool success){
@@ -94,7 +94,7 @@ contract LaunchPad {
         require(subscriberIndex[msg.sender] == true, "You don't belong here");
         require(padId[_id].endTime < block.timestamp, "campaign not yet ended");
         require(_amount <= padId[_id].amount[msg.sender], "Not enough balance");
-        padId[_id].TokenB.transferFrom(address(this), msg.sender, _amount);
+        padId[_id].TokenB.transfer(msg.sender, _amount);
         success = true;
     }
     function transferLeftoverTokens(IERC20 _tokenContract) public returns(bool success){
